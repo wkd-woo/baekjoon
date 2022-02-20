@@ -53,10 +53,8 @@ if 1 <= points <= 1000 and 1 <= lines <= 10000:
     print()
     bfs(graph, start)
 
-
-
- # 이차원 배열의 행을 정점 개수만큼
-    # temp = [[] for _ in range(points)]
+# 이차원 배열의 행을 정점 개수만큼
+# temp = [[] for _ in range(points)]
 
 # dict 형태로 연결된 정점을 입력
-    # graph = {i + 1: temp[i] for i in range(len(temp))}
+# graph = {i + 1: temp[i] for i in range(len(temp))}
