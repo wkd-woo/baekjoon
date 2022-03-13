@@ -14,11 +14,13 @@ def bfs(x, y):
     queue = deque()
     queue.append((x, y))
 
+    cnt = 0
+
     while queue:
         x, y = queue.popleft()
 
         for i in range(4):
-            nx = x + dx[i] # 상하좌우 돌면서 확인
+            nx = x + dx[i]  # 상하좌우 돌면서 확인
             ny = y + dy[i]
 
             # 그래프 범위에서 벗어나면 생략함
@@ -28,7 +30,7 @@ def bfs(x, y):
             # 현 위치에서 그래프 값이 1이면
             if graph[nx][ny] == 1:
                 graph[nx][ny] = 0
-                queue.append((nx, ny)) # 0으로 초기화, 현 위치 좌표를 queue에 추가
+                queue.append((nx, ny))  # 0으로 초기화, 현 위치 좌표를 queue에 추가
     return
 
 
