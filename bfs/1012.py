@@ -14,8 +14,6 @@ def bfs(x, y):
     queue = deque()
     queue.append((x, y))
 
-    cnt = 0
-
     while queue:
         x, y = queue.popleft()
 
