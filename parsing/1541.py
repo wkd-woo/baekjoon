@@ -18,7 +18,7 @@ line = input()
 operator = re.findall("[^0-9]", line)
 pattern = re.compile("^[0-9] + [0-9]\-\+ + [0-9]$")
 
-if len(line) <= 50 and pattern:
+if pattern:
     l = list((line.replace('+', ' + ').replace('-', ' - ')).split())
     if chk_digit(l) and chk_first_last(l):
         result = 0
@@ -26,14 +26,13 @@ if len(line) <= 50 and pattern:
 
         for i, each in enumerate(l):
 
-            if len(each) <= 5:
-                if each.isnumeric() and not condition:
-                    result += int(each)
-                elif each == '-':
-                    condition = ~condition
-                elif each.isnumeric() and condition:
-                    result -= int(each)
-                else:
-                    pass
+            if each.isnumeric() and not condition:
+                result += int(each)
+            elif each == '-':
+                condition = ~condition
+            elif each.isnumeric() and condition:
+                result -= int(each)
+            else:
+                pass
 
         print(result)
