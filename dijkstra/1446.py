@@ -30,7 +30,7 @@ graph = [[] for i in range(d + 1)]
 distance = [INF] * (d + 1)
 
 for i in range(d):
-    graph[i].append((i + 1, 1))
+    graph[i].append((i + 1, 1))  # 노드마다 cost 정해주는것이 핵심
 
 for _ in range(n):
     start, end, length = map(int, input().split())
