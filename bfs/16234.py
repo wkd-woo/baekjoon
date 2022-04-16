@@ -1,4 +1,8 @@
+import copy
+import sys
 from collections import deque
+
+sys.setrecursionlimit(10 ** 5)
 
 # 좌표평면 상하좌우
 dx = [-1, 1, 0, 0]
@@ -6,10 +10,9 @@ dy = [0, 0, -1, 1]
 
 
 def bfs(x, y):
-    global border
     queue = deque()
     queue.append((x, y))
-
+    temp = [(x, y)]
     while queue:
         x, y = queue.popleft()
         for i in range(4):
@@ -22,41 +25,35 @@ def bfs(x, y):
 
             diff = abs(graph[nx][ny] - graph[x][y])
 
-            # 현 위치에서 그래프 값이 1이면
-            if l <= diff <= r and not border[nx][ny]:
-                border[x][y] = 1
-                border[nx][ny] = 1
-                queue.append((nx, ny))  # 0으로 초기화, 현 위치 좌표를 queue에 추가
+            # 차이가 l이상 r 이하이고 방문하지 않았다면
+            if l <= diff <= r and not visit[nx][ny]:
+                visit[nx][ny] = 1
+                queue.append((nx, ny))  # 현 위치 좌표를 queue에 추가
+                temp.append((nx, ny))
+    return temp
 
 
 n, l, r = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(n)]
-border = [[0] * n for _ in range(n)]
+before = copy.deepcopy(graph)
 
 cnt = 0
 while True:
+    visit = [[0] * n for i in range(n)]
 
     for i in range(n):
         for j in range(n):
-            bfs(i, j)
+            if not visit[i][j]:
+                visit[i][j] = 1
+                temp = bfs(i, j)
+                if len(temp) > 1:
+                    num = sum([graph[x][y] for x, y in temp]) // len(temp)
+                    for x, y in temp:
+                        graph[x][y] = num
 
-    mod = 0
-    nation = 0
-    queue = deque()
-    for i in range(n):
-        for j in range(n):
-            if border[i][j]:
-                queue.append((i, j))
-                mod += graph[i][j]
-                nation += 1
-
-    if nation != 0:
+    if before != graph:
         cnt += 1
-        mod = mod // nation
-
-        while queue:
-            i, j = queue.popleft()
-            graph[i][j] = mod
+        before = copy.deepcopy(graph)
     else:
         break
 
