@@ -18,12 +18,12 @@ for k in range(n):  # 경로 for문이 가장 상위 단계여야 누락되지 �
                 graph[i][j] = 1  # 자신보다 작은 경우
 
 # 출력
-answer = 0
+result = 0
 for i in range(n):
     know = 0
     for j in range(n):
         know += graph[i][j] + graph[j][i]  # 자신보다 작은사람과 큰사람의 합
     if know == n - 1:  # 자신의 키 순서를 알 경우
-        answer += 1
+        result += 1
 
-print(answer)
+print(result)

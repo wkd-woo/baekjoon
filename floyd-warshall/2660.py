@@ -23,15 +23,15 @@ for k in range(n):
             if graph[i][j] > graph[i][k] + graph[k][j]:
                 graph[i][j] = graph[i][k] + graph[k][j]
 
-answer, candidates = [], []
+result, candidates = [], []
 for i in range(n):
-    answer.append(max(graph[i]))
+    result.append(max(graph[i]))
 
-MIN = min(answer)
-print(MIN, answer.count(MIN))
+MIN = min(result)
+print(MIN, result.count(MIN))
 
 for i in range(0, n):
-    if answer[i] == MIN:
+    if result[i] == MIN:
         candidates.append(i + 1)
 
 print(*candidates)
