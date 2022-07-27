@@ -1,14 +1,12 @@
-try:
-    N = int(input())
-    P = list(map(int, input().split()))
+n = int(input())
 
-    if 1 <= N <= 1000 and all(1 <= x <= 1000 for x in P):
-        min_list = sorted(P)
-        result = 0
+people = sorted(map(int, input().split()))
 
-        for i in range(1, N + 1):
-            result += sum(min_list[:i])
+total = []
+for person in people:
+    if not total:
+        total.append(person)
+    else:
+        total.append(person + total[-1])
 
-        print(result)
-except IndexError:
-    pass
+print(sum(total))
