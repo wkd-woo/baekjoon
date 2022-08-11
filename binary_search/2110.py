@@ -5,7 +5,7 @@ start = 1 - l[0]
 end = l[-1] - l[0]
 result = 0
 
-while (start <= end):
+while start <= end:
     mid = (start + end) // 2  # 중간 값
     value = l[0]
     cnt = 1
