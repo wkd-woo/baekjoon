@@ -1,29 +1,27 @@
-n = int(input())
-tree = {i: [] for i in range(1, n + 1)}
-visited = [False for _ in range(n + 1)]
-distance = [0 for _ in range(n + 1)]
+k = int(input())
+w = list(map(int, input().split()))
+V, E = 2**(k+1) - 1, 2**(k+1) - 2
 
-for _ in range(n - 1):
-    u, v = map(int, input().split())
-    tree[u].append(v)
-    tree[v].append(u)
+tree = {i: [] for i in range(1, V+1)}
+parent = {i: [i//2] for i in range(1, V+1)}
+parent[1] = [1]
+
+
+for v in range(V, 1, -1):
+    tree[v//2].append((v, w[v-2]))
+
+leaves = [K for K, V in tree.items() if not V]
+visited = [False for _ in range(V + 1)]
+distance = [0 for _ in range(V + 1)]
 
 
 def dfs(cur):
     visited[cur] = True
-    for next in tree[cur]:
-        if not visited[next]:
-            distance[next] = distance[cur] + 1
-            dfs(next)
+    for next_, weight in tree[cur]:
+        if not visited[next_]:
+            distance[next_] = distance[cur] + weight
+            dfs(next_)
 
 
 dfs(1)
-answer = 0
-for K, V in tree.items():
-    if len(V) == 1:
-        answer += distance[K]
-
-if answer % 2:
-    print('Yes')
-else:
-    print('No')
+print(sum(distance))
