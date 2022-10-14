@@ -24,9 +24,7 @@ for _ in range(int(input())):
         tree[b].append([a, 1])
 
     visited = [False] * (n + 1)
-
     diameter_max, mx_node = -int(1e9), 0
-    visited = [False] * (V + 1)
 
     visited[1] = True
     dfs(1, 0, visited)
