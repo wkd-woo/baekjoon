@@ -46,5 +46,3 @@ if len(set(parent)) != 2:
     print(-1)
 else:
     print(costs - answer)
-
-print(parent)
