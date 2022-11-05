@@ -18,11 +18,13 @@ for i in range(n):
     else:
         heapq.heappush(left, (-next_, next_))
 
-    # 좌/우 리스트 길이를 1 차이로 유지해야함
-    # 방금 들어온 값을 좌측 최대, 우측 최소랑 비교해야함
-    while len(left) <= len(right):
+    while not (len(left) >= len(right)):
         temp = heapq.heappop(right)
         heapq.heappush(left, (-temp, temp))
+
+    if len(left) > len(right) + 1:
+        temp = heapq.heappop(left)[1]
+        heapq.heappush(right, temp)
 
     mid = heapq.heappop(left)[1]
     heapq.heappush(left, (-mid, mid))
