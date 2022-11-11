@@ -3,29 +3,28 @@ l = [int(input()) for _ in range(n)]
 l.sort()
 answer = 0
 while len(l) > 1:
-    if max(l) < 0:
+    if max(l) <= 0:
         l.sort(reverse=True)
     one = l.pop()
     two = l.pop()
 
-    if one == two == 1:
-        answer += one + two
-        l.sort()
-    elif one * two == 0 and min(one, two) == 0:
+    if one * two == 0 and min(one, two) == 0:
         answer += max(one, two)
-        l.append(min(one, two))
-        l.sort(reverse=True)
+        if l:
+            l.append(min(one, two))
     elif one * two == 0 and min(one, two) < 0:
-        l.sort(reverse=True)
+        pass
     elif one * two > 0 and min(one, two) > 0:
         answer += max(one + two, one * two)
-        l.sort()
     elif one * two > 0 and min(one, two) < 0:
-        answer += one * two
-        l.sort(reverse=True)
+        answer += max(one + two, one * two)
+    elif one * two < 0:
+        answer += max(one, two)
+        l.append(min(one, two))
     else:
         answer += max(one + two, one * two)
-        l.sort()
+
+    l.sort()
 
 if l:
     answer += l.pop()
