@@ -3,23 +3,7 @@ from sys import stdin
 input = stdin.readline
 
 
-def find(x):
-    if x == parent[x]:
-        return x
-    else:
-        p = find(parent[x])
-        parent[x] = p
-        return p
 
-
-def union(x, y):
-    x = find(x)
-    y = find(y)
-
-    if x < y:
-        parent[y] = x
-    else:
-        parent[x] = y
 
 
 n, m = map(int, input().split())
