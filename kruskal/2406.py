@@ -8,10 +8,9 @@ input = stdin.readline
 def find(x):
     if x == parent[x]:
         return x
-    else:
-        p = find(parent[x])
-        parent[x] = p
-        return p
+    p = find(parent[x])
+    parent[x] = p
+    return p
 
 
 def union(x, y):
@@ -31,17 +30,15 @@ for i in range(1, n+1):
     l = list(map(int, input().split()))
     networks.append(l)
     for j in range(len(l)):
-        if i == j:
+        if i == j + 1:
             continue
-        edges.append((l[j], i, j+1))
+        if i == 1 or j + 1 == 1:
+            continue
+        edges.append((l[j], i, j + 1))
 
 for u, v in link:
-    if find(u) != find(v):
+    if find(u) != find(v) and u != 1:
         union(u, v)
-
-for i, p in enumerate(parent):
-    if i != p:
-        union(1, p)
 
 costs, k, computers = 0, 0, []
 edges.sort()
