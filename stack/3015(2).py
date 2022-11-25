@@ -34,4 +34,8 @@ for i in range(n):
         stack.append((x, i))
 
 answer.reverse()
-print(sum(answer))
+if max(l) == l[0] or max(l) == l[-1]:
+    print(sum(answer) - 1)
+
+else:
+    print(sum(answer) - 1)
