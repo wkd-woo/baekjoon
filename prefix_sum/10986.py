@@ -1,28 +1,17 @@
+from sys import stdin
+
+input = stdin.readline
+
 n, m = map(int, input().split())
 l = list(map(int, input().split()))
-
-sum_ = [0 for _ in range(n)]
-sum_[0] = l[0]
-for i in range(1, n):
-    sum_[i] = sum_[i-1] + l[i]
+db = {i: 0 for i in range(m)}  # O(m)
+db[0], total = 1, 0
+for i in range(n):
+    total += l[i]  # O(n) = O(1,000,000)
+    db[total % m] += 1  # 누적 합의 나머지가 같은 것을 찾음
 
 cnt = 0
-for each in l:
-    if each % m == 0:
-        cnt += 1
+for V in db.values():
+    cnt += V * (V-1) // 2  # 조합
 
-for i in range(n):
-    sum_[i] = sum_[i] % m
-
-sum_2 = [0 for _ in range(n)]
-sum_2[0] = sum_[0]
-for i in range(1, n):
-    sum_2[i] = sum_2[i-1] + sum_[i]
-
-for i in range(n):
-    sum_2[i] = sum_2[i] % m
-
-cnt += sum_.count(0) + sum_2.count(0)
 print(cnt)
-print(sum_)
-print(sum_2)
