@@ -1,23 +1,31 @@
 from sys import stdin
-from collections import deque
+from collections import deque, defaultdict
 from itertools import combinations
 
 input = stdin.readline
 
 n, k = map(int, input().split())
-l = [len(input()) for i in range(n)]
-name_db = set(l)
-l = sorted([(each, i) for i, each in enumerate(l)], key=lambda x: (x[0], x[1]))
-l = deque(l)
+l = [len(input()) for _ in range(n)]
+db = defaultdict(list)
 
-cnt = 0
-for len_ in name_db:
-    cand = []
-    while l and l[0][0] == len_:
-        cand.append(l.popleft())
+for i, length in enumerate(l):
+    db[length].append(i+1)
 
-    for a, b in combinations(cand, 2):
-        if abs(a[1] - b[1]) <= k:
-            cnt += 1
+answer = 0
+for K, V in db.items():
+    q = deque(V)
+    now = q.popleft()
+    temp = []
+    while q:
+        print(q, temp)
+        next_ = q.popleft()
+        temp.append(next_)
+        if abs(next_ - now) <= K:
+            answer += 1
+        else:
+            q.extendleft(temp)
+            now = q.popleft()
+            temp = []
 
-print(cnt)
+
+print(answer)
